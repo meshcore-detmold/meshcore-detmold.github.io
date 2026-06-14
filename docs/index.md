@@ -1,12 +1,12 @@
 # Meshcore Detmold
 
-Welcome to the Meshcore Detmold community site.
+Willkommen auf der Community-Seite von Meshcore Detmold.
 
-This repository holds community documentation for Meshcore, including meeting notes and resources.
+Dieses Repository enthält Community-Dokumentation für Meshcore, einschließlich Sitzungsnotizen und Ressourcen.
 
-## Pages
+## Seiten
 
-- [About](about.md)
-- [Events](events.md)
-- [Resources](resources.md)
-- [Contributing](contributing.md)
+- [Über uns](about.md)
+- [Veranstaltungen](events.md)
+- [Ressourcen](resources.md)
+- [Mitwirken](contributing.md)

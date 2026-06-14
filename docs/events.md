@@ -1,9 +1,9 @@
-# Events
+# Veranstaltungen
 
-## Upcoming
+## Kommende Termine
 
-- Add your upcoming meetups, workshops, or community calls here.
+- Füge hier deine kommenden Meetups, Workshops oder Community-Treffen hinzu.
 
-## Past meetings
+## Vergangene Treffen
 
-- Record past meeting dates, topics, and notes.
+- Halte vergangene Termine, Themen und Notizen fest.

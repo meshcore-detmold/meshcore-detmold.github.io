@@ -51,6 +51,21 @@ body {
   font-weight: 700;
   font-size: 1.1rem;
 }
+.repo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: #24292f;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+.repo-tag svg {
+  fill: currentColor;
+}
 .nav-links {
   display: flex;
   gap: 1rem;

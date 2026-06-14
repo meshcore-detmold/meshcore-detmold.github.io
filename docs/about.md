@@ -1,9 +1,9 @@
-# About Meshcore Detmold
+# Über Meshcore Detmold
 
-Meshcore Detmold is a community group focused on decentralized mesh networking, open source collaboration, and local events.
+Meshcore Detmold ist eine Community-Gruppe, die sich auf dezentrales Mesh-Netzwerk, Open-Source-Zusammenarbeit und lokale Veranstaltungen konzentriert.
 
 ## Mission
 
-- Share knowledge about mesh networks and community wireless infrastructure.
-- Support local projects and collaborations.
-- Build a friendly, open community for learning and experimentation.
+- Wissen über Mesh-Netzwerke und Community-WLAN-Infrastruktur teilen.
+- Lokale Projekte und Zusammenarbeit unterstützen.
+- Eine freundliche, offene Community für Lernen und Experimentieren aufbauen.

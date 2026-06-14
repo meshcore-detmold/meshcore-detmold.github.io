@@ -1,13 +1,13 @@
-# Contributing
+# Mitwirken
 
-Thank you for contributing to Meshcore Detmold!
+Danke für deinen Beitrag zu Meshcore Detmold!
 
-## How to contribute
+## Wie du beitragen kannst
 
-- Open issues for ideas and fixes.
-- Submit pull requests for docs or meeting notes.
-- Start by editing files under `docs/`.
+- Erstelle Issues für Ideen und Fehler.
+- Sende Pull Requests für Dokumentation oder Sitzungsnotizen.
+- Beginne damit, Dateien unter `docs/` zu bearbeiten.
 
-## Code of conduct
+## Verhaltenskodex
 
-Please keep contributions friendly, inclusive, and respectful.
+Bitte halte Beiträge freundlich, inklusiv und respektvoll.

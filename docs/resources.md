@@ -1,9 +1,9 @@
-# Resources
+# Ressourcen
 
-## Documentation
+## Dokumentation
 
-- Link to Meshcore docs and relevant community resources.
+- Verlinke Meshcore-Dokumente und relevante Community-Ressourcen.
 
 ## Tools
 
-- Add tools, software, and hardware guides here.
+- Füge hier Tools, Software- und Hardware-Anleitungen hinzu.

@@ -1,30 +1,30 @@
 # Meshcore Detmold Community
 
-Welcome to the Meshcore Detmold community repository. This repo is intended to host community documentation, meeting notes, and collaboration materials for the Meshcore group.
+Willkommen im Community-Repository von Meshcore Detmold. Dieses Repo soll Community-Dokumentation, Sitzungsnotizen und kollaborative Materialien für die Meshcore-Gruppe enthalten.
 
-## Quick Start
+## Schnellstart
 
-- Add or update community README files in `docs/`.
-- Main site entry is now `docs/index.html` so you can use a sticky header and footer.
-- Use GitHub Pages from the `docs/` folder.
-- The site URL will be available from your repo Pages settings after activation.
+- Füge Community-README-Dateien in `docs/` hinzu oder aktualisiere sie.
+- Der Hauptseiten-Einstieg ist jetzt `docs/index.html`, damit du einen fixierten Header und Footer nutzen kannst.
+- Verwende GitHub Pages aus dem Ordner `docs/`.
+- Die Seiten-URL ist nach der Aktivierung in den Pages-Einstellungen sichtbar.
 
-## Recommended docs structure
+## Empfohlene Dokumentenstruktur
 
-- `docs/index.md` — landing page
-- `docs/about.md` — about the community
-- `docs/events.md` — events and meetups
-- `docs/resources.md` — links and learning resources
-- `docs/contributing.md` — how to help
+- `docs/index.html` — Startseite
+- `docs/about.md` — über die Community
+- `docs/events.md` — Veranstaltungen und Meetups
+- `docs/resources.md` — Links und Lernressourcen
+- `docs/contributing.md` — wie man mitwirkt
 
-## Activate GitHub Pages
+## GitHub Pages aktivieren
 
-1. Push this repository to GitHub.
-2. Open `Settings` → `Pages` in your repository.
-3. Set `Source` to `Deploy from a branch` and choose `main` (or your default branch).
-4. Set the folder to `/docs`.
-5. Save and wait a minute for the site to deploy.
+1. Push das Repository nach GitHub.
+2. Öffne `Settings` → `Pages` in deinem Repository.
+3. Wähle bei `Source` die Option `Deploy from a branch` und `main` (oder deinen Standard-Branch).
+4. Setze den Ordner auf `/docs`.
+5. Speichere und warte einen Moment, bis die Seite bereitgestellt ist.
 
-## Local preview
+## Lokale Vorschau
 
-You can view `docs/index.md` in GitHub or with a local Markdown preview extension.
+Du kannst `docs/index.html` in GitHub oder mit einer lokalen HTML-Vorschau ansehen.
