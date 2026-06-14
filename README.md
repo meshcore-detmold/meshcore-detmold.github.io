@@ -12,10 +12,9 @@ Willkommen im Community-Repository von Meshcore Detmold. Dieses Repo soll Commun
 ## Empfohlene Dokumentenstruktur
 
 - `docs/index.html` — Startseite
-- `docs/about.md` — über die Community
-- `docs/events.md` — Veranstaltungen und Meetups
-- `docs/resources.md` — Links und Lernressourcen
-- `docs/contributing.md` — wie man mitwirkt
+- `docs/about.html` — über die Community
+- `docs/resources.html` — Links und Lernressourcen
+- `docs/contributing.html` — wie man mitwirkt
 
 ## GitHub Pages aktivieren
 
