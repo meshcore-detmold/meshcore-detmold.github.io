@@ -1,0 +1,60 @@
+name: Build and Deploy Pages
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Clone wiki and copy docs into site public
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki || true
+          mkdir -p site/public/wiki
+          cp -R wiki/. site/public/wiki || true
+          mkdir -p site/public/docs
+          cp -R docs/. site/public/docs || true
+          node -e "const fs=require('fs');const path=require('path');const walk=(d)=>fs.readdirSync(d,{withFileTypes:true}).flatMap(x=>x.isDirectory()?walk(path.join(d,x.name)):path.join(d,x.name));let files=[];if(fs.existsSync('site/public/wiki')) files=walk('site/public/wiki').filter(f=>f.endsWith('.md'));fs.writeFileSync('site/public/content-index.json',JSON.stringify(files.map(f=>f.replace(/\\\\/g,'/').replace(/^site\/public\//,''))));"
+
+      - name: Install and build site
+        run: |
+          cd site
+          npm ci
+          VITE_BASE_PATH=${{ github.ref_name }} npm run build
+
+      - name: Prepare artifact path for deployment
+        if: github.ref_name == 'main'
+        run: |
+          mkdir -p deploy-root
+          cp -r site/dist/* deploy-root/
+
+      - name: Prepare artifact path for preview deployment
+        if: github.ref_name != 'main'
+        run: |
+          mkdir -p deploy-root/preview/${{ github.ref_name }}
+          cp -r site/dist/* deploy-root/preview/${{ github.ref_name }}/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: deploy-root
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1

@@ -1,0 +1,227 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #f7f8fb;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: #ffffff;
+  --text: #111827;
+  --muted: rgba(15, 23, 42, 0.72);
+  --border: rgba(15, 23, 42, 0.12);
+  --border-strong: rgba(15, 23, 42, 0.06);
+  --shadow: rgba(15, 23, 42, 0.08);
+  --header-footer: rgba(255, 255, 255, 0.92);
+  --footer-border: rgba(15, 23, 42, 0.08);
+  --button-bg: #4338ca;
+  --button-text: #ffffff;
+  --link: #0f172a;
+  --link-hover: #4338ca;
+  background: var(--bg);
+  color: var(--text);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 0 1.5rem 5rem;
+  line-height: 1.6;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+}
+.site-header,
+.site-footer {
+  width: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+.site-header {
+  position: sticky;
+  top: 0;
+}
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 0.9rem 1.5rem;
+}
+.site-header__inner,
+.page-content,
+.site-footer > div {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.nav-links a,
+.site-footer a,
+.button,
+.footer-button {
+  color: #0f172a;
+  text-decoration: none;
+}
+.nav-links a:hover,
+.site-footer a:hover,
+.button:hover,
+.footer-button:hover {
+  color: #4338ca;
+}
+.footer-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 999px;
+  background: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.footer-button svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+.footer-button:hover {
+  background: rgba(67, 56, 202, 0.08);
+  border-color: rgba(67, 56, 202, 0.32);
+}
+.page-content {
+  padding: 2.5rem 0 8rem;
+}
+.hero {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+.hero h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.04em;
+}
+.cards {
+  display: grid;
+  gap: 1rem;
+}
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  border-radius: 1.2rem;
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.04);
+}
+.card-copy {
+  flex: 1;
+}
+.card h2 {
+  margin: 0 0 0.75rem;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
+  background: #4338ca;
+  color: white;
+  font-weight: 600;
+  min-width: 10rem;
+}
+.site-footer {
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.site-footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+}
+@media (max-width: 640px) {
+  .site-header__inner,
+  .site-footer > div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  body {
+    padding-bottom: 7rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #070b17;
+    --surface: rgba(15, 23, 42, 0.92);
+    --surface-strong: #0f172a;
+    --text: #e2e8f0;
+    --muted: rgba(226, 232, 240, 0.72);
+    --border: rgba(148, 163, 184, 0.18);
+    --border-strong: rgba(148, 163, 184, 0.08);
+    --shadow: rgba(0, 0, 0, 0.35);
+    --header-footer: rgba(15, 23, 42, 0.88);
+    --footer-border: rgba(148, 163, 184, 0.18);
+    --button-bg: #6366f1;
+    --button-text: #ffffff;
+    --link: #e2e8f0;
+    --link-hover: #a5b4fc;
+    background: #070b17;
+  }
+  body {
+    background: linear-gradient(180deg, #050811 0%, #0f172a 100%);
+  }
+  .site-header,
+  .site-footer {
+    background: var(--header-footer);
+    border-color: rgba(148, 163, 184, 0.12);
+  }
+  .hero,
+  .card {
+    background: var(--surface);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    border-color: var(--border-strong);
+  }
+  .site-header,
+  .site-footer {
+    border-color: var(--footer-border);
+  }
+  .nav-links a,
+  .site-footer a,
+  .button,
+  .footer-button {
+    color: var(--link);
+  }
+  .nav-links a:hover,
+  .site-footer a:hover,
+  .button:hover,
+  .footer-button:hover {
+    color: var(--link-hover);
+  }
+  .card {
+    border-color: var(--border);
+  }
+}
