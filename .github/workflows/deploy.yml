@@ -36,25 +36,13 @@ jobs:
           npm ci
           VITE_BASE_PATH=${{ github.ref_name }} npm run build
 
-      - name: Prepare artifact path for deployment
-        if: github.ref_name == 'main'
-        run: |
-          mkdir -p deploy-root
-          cp -r site/dist/* deploy-root/
-
-      - name: Prepare artifact path for preview deployment
-        if: github.ref_name != 'main'
-        run: |
-          mkdir -p deploy-root/preview/${{ github.ref_name }}
-          cp -r site/dist/* deploy-root/preview/${{ github.ref_name }}/
-
       - name: Configure Pages
         uses: actions/configure-pages@v6
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: deploy-root
+          path: site/dist
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v5
