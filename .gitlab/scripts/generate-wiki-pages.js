@@ -8,22 +8,15 @@
 const fs = require('fs')
 const path = require('path')
 
-const sourcePath = process.argv[2] || path.join(__dirname, '../../site/public/docs')
-const docsDir = path.resolve(sourcePath)
+const docsDir = path.join(__dirname, '../../site/public/docs')
 
 // List of files to skip
-const skipFiles = ['favicon.png', 'style.css', 'Home.md', 'Home.markdown', 'index.md', 'index.markdown']
+const skipFiles = ['favicon.png', 'style.css']
 
 // Read available markdown files
-const files = fs.existsSync(docsDir)
-  ? fs.readdirSync(docsDir).filter((file) => {
-      const lower = file.toLowerCase()
-      return (
-        (lower.endsWith('.md') || lower.endsWith('.markdown')) &&
-        !skipFiles.map((skip) => skip.toLowerCase()).includes(lower)
-      )
-    })
-  : []
+const files = fs.readdirSync(docsDir).filter(
+  (file) => file.endsWith('.md') && !skipFiles.includes(file)
+)
 
 // Map files to page metadata
 const wikiPages = files.map((file) => {

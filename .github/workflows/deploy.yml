@@ -26,14 +26,10 @@ jobs:
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki || true
           mkdir -p site/public/docs
           if [ -d "wiki" ]; then
-            find wiki -maxdepth 1 \( -iname '*.md' -o -iname '*.markdown' \) ! -iname 'Home.*' -exec cp {} site/public/docs/ \;
+            find wiki -maxdepth 1 -name '*.md' ! -name 'Home.md' -exec cp {} site/public/docs/ \;
           fi
           cp -R docs/. site/public/docs || true
-          echo "site/public/docs content:"
-          ls -1 site/public/docs || true
-          echo "wiki content:"
-          ls -1 wiki || true
-          node .gitlab/scripts/generate-wiki-pages.js wiki
+          node .gitlab/scripts/generate-wiki-pages.js
 
       - name: Install and build site
         run: |
