@@ -3,10 +3,38 @@ import { Link } from 'react-router-dom'
 import wikiPages from '../wikiPages'
 
 const MAX_CARD_ITEMS = 4
+const fixedCards = [
+  {
+    title: 'Über uns',
+    description: 'Erfahre mehr über die Mission und Ziele der Meshcore Detmold Community.',
+    to: '/about',
+  },
+  {
+    title: 'Ressourcen',
+    description: 'Finde Anleitungen, Tools und Lernmaterialien für Mesh-Netzwerke.',
+    to: '/resources',
+  },
+  {
+    title: 'Mitwirken',
+    description: 'Hilf dabei, die Community durch Dokumentation, Notizen und Ideen zu erweitern.',
+    to: '/contributing',
+  },
+]
+const fixedSlugs = ['about', 'resources', 'contributing']
 
 export default function Home() {
-  const visiblePages = wikiPages.slice(0, MAX_CARD_ITEMS)
-  const hasOverflow = wikiPages.length > MAX_CARD_ITEMS
+  const extraPages = wikiPages.filter((page) => !fixedSlugs.includes(page.slug))
+  const allCards = [
+    ...fixedCards,
+    ...extraPages.map((page) => ({
+      title: page.title,
+      description: page.description,
+      to: `/wiki/${page.slug}`,
+      key: page.slug,
+    })),
+  ]
+  const visibleCards = allCards.slice(0, MAX_CARD_ITEMS)
+  const hasOverflow = allCards.length > MAX_CARD_ITEMS
 
   return (
     <main className="page-content">
@@ -16,14 +44,14 @@ export default function Home() {
       </section>
 
       <section className="cards">
-        {visiblePages.map((page) => (
-          <article className="card" key={page.slug}>
+        {visibleCards.map((card, index) => (
+          <article className="card" key={card.key || index}>
             <div className="card-copy">
-              <h2>{page.title}</h2>
-              <p>{page.description}</p>
+              <h2>{card.title}</h2>
+              <p>{card.description}</p>
             </div>
-            <Link className="button" to={`/wiki/${page.slug}`}>
-              Seite öffnen
+            <Link className="button" to={card.to}>
+              {card.to.startsWith('/wiki/') ? 'Seite öffnen' : 'Mehr erfahren'}
             </Link>
           </article>
         ))}
@@ -31,8 +59,8 @@ export default function Home() {
         {hasOverflow && (
           <article className="card overflow-card">
             <div className="card-copy">
-              <h2>Weitere Wiki-Seiten</h2>
-              <p>Es gibt noch weitere Seiten in der Repo-Dokumentation. Hier gelangst du zur vollständigen Übersicht.</p>
+              <h2>Weitere Seiten</h2>
+              <p>Es gibt noch weitere Wiki-Seiten auf Root-Level. Hier führt dich die Übersicht zu allen verfügbaren Seiten.</p>
             </div>
             <Link className="button" to="/wiki">
               Mehr sehen

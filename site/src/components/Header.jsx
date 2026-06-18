@@ -3,13 +3,22 @@ import { Link } from 'react-router-dom'
 import wikiPages from '../wikiPages'
 
 const MAX_NAV_ITEMS = 4
+const fixedNavItems = [
+  { label: 'Start', to: '/' },
+  { label: 'Über uns', to: '/about' },
+  { label: 'Ressourcen', to: '/resources' },
+  { label: 'Mitwirken', to: '/contributing' },
+]
+const fixedSlugs = fixedNavItems
+  .filter((item) => item.to.startsWith('/wiki/'))
+  .map((item) => item.to.replace('/wiki/', ''))
 
 export default function Header() {
-  const navItems = [
-    { label: 'Start', to: '/' },
-    ...wikiPages.map((page) => ({ label: page.title, to: `/wiki/${page.slug}` })),
-  ]
+  const extraNavItems = wikiPages
+    .filter((page) => !fixedSlugs.includes(page.slug))
+    .map((page) => ({ label: page.title, to: `/wiki/${page.slug}` }))
 
+  const navItems = [...fixedNavItems, ...extraNavItems]
   const visibleItems = navItems.slice(0, MAX_NAV_ITEMS)
   const overflowItems = navItems.slice(MAX_NAV_ITEMS)
 
