@@ -1,35 +1,24 @@
 import React, { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export default function Contributing() {
-  const [html, setHtml] = useState(null)
+  const [markdown, setMarkdown] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/docs/contributing.html')
+    fetch('/docs/contributing.md')
       .then(r => r.ok ? r.text() : Promise.reject('not found'))
       .then(text => {
-        try {
-          const parser = new DOMParser()
-          const doc = parser.parseFromString(text, 'text/html')
-          
-          // Extract main content without header/footer
-          const main = doc.querySelector('main')
-          if (main) {
-            setHtml(main.innerHTML)
-          } else {
-            setHtml('<p>Inhalt nicht gefunden</p>')
-          }
-        } catch (e) {
-          setHtml('<p>Fehler beim Laden des Inhalts</p>')
-        }
+        setMarkdown(text)
         setLoading(false)
       })
       .catch(() => {
-        setHtml('<p>Seite nicht gefunden</p>')
+        setMarkdown('')
         setLoading(false)
       })
   }, [])
 
   if (loading) return <div>Lädt...</div>
-  return <article className="page-content" dangerouslySetInnerHTML={{__html: html}} />
+  return <article className="page-content markdown-content"><ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown || ''}</ReactMarkdown></article>
 }

@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import wikiPages from '../wikiPages'
+
+const MAX_CARD_ITEMS = 4
 
 export default function Home() {
+  const visiblePages = wikiPages.slice(0, MAX_CARD_ITEMS)
+  const hasOverflow = wikiPages.length > MAX_CARD_ITEMS
+
   return (
     <main className="page-content">
       <section className="hero">
@@ -10,29 +16,29 @@ export default function Home() {
       </section>
 
       <section className="cards">
-        <article className="card">
-          <div className="card-copy">
-            <h2>Über uns</h2>
-            <p>Erfahre mehr über die Mission und Ziele der Meshcore Detmold Community.</p>
-          </div>
-          <Link className="button" to="/about">Mehr erfahren</Link>
-        </article>
+        {visiblePages.map((page) => (
+          <article className="card" key={page.slug}>
+            <div className="card-copy">
+              <h2>{page.title}</h2>
+              <p>{page.description}</p>
+            </div>
+            <Link className="button" to={`/wiki/${page.slug}`}>
+              Seite öffnen
+            </Link>
+          </article>
+        ))}
 
-        <article className="card">
-          <div className="card-copy">
-            <h2>Ressourcen</h2>
-            <p>Finde Anleitungen, Tools und Lernmaterialien für Mesh-Netzwerke.</p>
-          </div>
-          <Link className="button" to="/resources">Ressourcen öffnen</Link>
-        </article>
-
-        <article className="card">
-          <div className="card-copy">
-            <h2>Mitwirken</h2>
-            <p>Hilf dabei, die Community durch Dokumentation, Notizen und Ideen zu erweitern.</p>
-          </div>
-          <Link className="button" to="/contributing">Mitmachen</Link>
-        </article>
+        {hasOverflow && (
+          <article className="card overflow-card">
+            <div className="card-copy">
+              <h2>Weitere Wiki-Seiten</h2>
+              <p>Es gibt noch weitere Seiten in der Repo-Dokumentation. Hier gelangst du zur vollständigen Übersicht.</p>
+            </div>
+            <Link className="button" to="/wiki">
+              Mehr sehen
+            </Link>
+          </article>
+        )}
       </section>
     </main>
   )

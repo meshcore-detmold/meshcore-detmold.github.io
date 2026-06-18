@@ -1,0 +1,87 @@
+stages:
+  - sync
+  - build
+  - deploy
+
+# Wiki sync job - triggered by webhook from wiki repo
+sync-wiki:
+  stage: sync
+  image: node:18
+  only:
+    - web  # Only run on manual trigger or webhook
+  script:
+    # Configure git
+    - git config --global user.email "ci@example.com"
+    - git config --global user.name "CI Wiki Sync Bot"
+    
+    # Clone wiki repo
+    - git clone https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.wiki.git wiki-temp
+    
+    # Check if wiki repo has content
+    - |
+      if [ ! -d "wiki-temp" ] || [ -z "$(find wiki-temp -name '*.md' -o -name '*.markdown')" ]; then
+        echo "Wiki is empty or not found"
+        exit 0
+      fi
+    
+    # Extract first-level wiki pages (*.md files)
+    # Copy markdown files to site/public/docs
+    - |
+      mkdir -p site/public/docs
+      for file in wiki-temp/*.{md,markdown}; do
+        if [ -f "$file" ]; then
+          filename=$(basename "$file")
+          # Convert filename to slug (lowercase, remove extension)
+          slug=$(echo "${filename%.*}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+          
+          # Skip Home page (it's the main page)
+          if [ "$slug" != "home" ]; then
+            cp "$file" "site/public/docs/$slug.md"
+          fi
+        fi
+      done
+    
+    # Generate wikiPages.js from available docs
+    - node .gitlab/scripts/generate-wiki-pages.js
+    
+    # Check if there are changes
+    - |
+      if git diff --quiet site/public/docs site/src/wikiPages.js; then
+        echo "No changes in wiki content"
+        exit 0
+      fi
+    
+    # Commit and push if changes exist
+    - git add site/public/docs site/src/wikiPages.js
+    - git commit -m "chore: sync wiki content"
+    - git push https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git HEAD:${CI_COMMIT_REF_NAME}
+  
+  retry:
+    max: 2
+    when: runner_system_failure
+
+# Build job - runs after sync or on any main branch push
+build-site:
+  stage: build
+  image: node:18
+  script:
+    - cd site
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - site/dist/
+  only:
+    - main
+
+# Deploy to GitLab Pages
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp -r site/dist/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
