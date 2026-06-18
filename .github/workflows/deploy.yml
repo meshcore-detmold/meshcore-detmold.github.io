@@ -24,11 +24,12 @@ jobs:
       - name: Clone wiki and copy docs into site public
         run: |
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki || true
-          mkdir -p site/public/wiki
-          cp -R wiki/. site/public/wiki || true
           mkdir -p site/public/docs
+          if [ -d "wiki" ]; then
+            find wiki -maxdepth 1 -name '*.md' ! -name 'Home.md' -exec cp {} site/public/docs/ \;
+          fi
           cp -R docs/. site/public/docs || true
-          node -e "const fs=require('fs');const path=require('path');const walk=(d)=>fs.readdirSync(d,{withFileTypes:true}).flatMap(x=>x.isDirectory()?walk(path.join(d,x.name)):path.join(d,x.name));let files=[];if(fs.existsSync('site/public/wiki')) files=walk('site/public/wiki').filter(f=>f.endsWith('.md'));fs.writeFileSync('site/public/content-index.json',JSON.stringify(files.map(f=>f.replace(/\\\\/g,'/').replace(/^site\/public\//,''))));"
+          node .gitlab/scripts/generate-wiki-pages.js
 
       - name: Install and build site
         run: |
