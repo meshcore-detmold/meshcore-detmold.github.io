@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import wikiPages from '../wikiPages'
 
 const getPageUrl = (slug) => `${import.meta.env.BASE_URL || '/'}docs/${slug}.md`
 
@@ -10,19 +9,21 @@ export default function WikiPage() {
   const { slug } = useParams()
   const [markdown, setMarkdown] = useState(null)
   const [loading, setLoading] = useState(true)
-  const page = wikiPages.find((item) => item.slug === slug)
+  const [exists, setExists] = useState(true)
 
   useEffect(() => {
-    if (!page) {
-      setMarkdown(null)
-      setLoading(false)
-      return
-    }
-
-    fetch(getPageUrl(page.slug))
-      .then((response) => (response.ok ? response.text() : Promise.reject('not found')))
+    setLoading(true)
+    fetch(getPageUrl(slug))
+      .then((response) => {
+        if (!response.ok) {
+          setExists(false)
+          throw new Error('not found')
+        }
+        return response.text()
+      })
       .then((text) => {
         setMarkdown(text)
+        setExists(true)
       })
       .catch(() => {
         setMarkdown('')
@@ -30,7 +31,7 @@ export default function WikiPage() {
       .finally(() => {
         setLoading(false)
       })
-  }, [page])
+  }, [slug])
 
   if (loading) return <div>Lädt...</div>
 

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node ../.gitlab/scripts/generate-wiki-pages.js && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

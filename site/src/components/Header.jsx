@@ -9,9 +9,7 @@ const fixedNavItems = [
   { label: 'Ressourcen', to: '/resources' },
   { label: 'Mitwirken', to: '/contributing' },
 ]
-const fixedSlugs = fixedNavItems
-  .filter((item) => item.to.startsWith('/wiki/'))
-  .map((item) => item.to.replace('/wiki/', ''))
+const fixedSlugs = ['about', 'resources', 'contributing']
 
 export default function Header() {
   const extraNavItems = wikiPages
